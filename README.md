@@ -1,6 +1,6 @@
 ## Welcome to Niklas & Gunnar's Sigma LIA Project
 
-###Autonomous Pocket C.H.I.P- driven plant watering
+### Autonomous Pocket C.H.I.P- driven plant watering
 
 #### Table of contents:
 Pocket C.H.I.P
