@@ -1,0 +1,174 @@
+/********************GENERAL******************/
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rebeccapurple;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background: lightgrey;
+}
+
+
+body{
+    font-family: 'Abel', sans-serif;
+    font-size: 1.2em;
+    font-weight: 700;
+
+}
+
+/*****************************************/
+
+
+
+.add-plant-div, .plant-display-div{
+
+    align-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.add-plant-div{
+
+    height: 70vh;
+}
+
+.add-plant-input{
+height: 15%;
+    border: none;
+    padding: 1%;
+    border-bottom: 2px solid lightgrey;
+    transition: 0.3s ease;
+
+}
+
+.add-plant-input:active, .add-plant-input:focus{
+border-bottom: 2px solid rebeccapurple;
+
+}
+
+.plant-display-div{
+    height: 95vh;
+    min-height: 330px;
+    overflow-y: auto;
+}
+
+        .display-categorize-button{
+            color: rebeccapurple;
+            font-weight: 700;
+            margin-top: 1%;
+            height: 15%;
+            cursor: pointer;
+
+        }
+
+        .display-categorize-button:hover{
+            color: lightgrey;
+
+
+        }
+
+.radio-container{
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+    text-align: center;
+    align-content: center;
+
+}
+
+.radio-div{
+    height: 50%;
+    margin: auto;
+
+}
+
+.add-plant-button{
+    height: 15%;
+    width: 50%;
+    margin: auto;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.2s ease;
+    color: rebeccapurple;
+}
+
+.add-plant-button:hover{
+    color: lightgrey;
+
+}
+
+
+
+
+
+@media screen and (max-width: 899px){
+    .add-plant-div{
+        height: 50vh;
+    }
+
+    .add-plant-input{
+        height: 15%;
+        border: none;
+        padding: 1%;
+        border-bottom: 2px solid lightgrey;
+        transition: 0.3s ease;
+
+    }
+
+    .add-plant-button{
+        height: 20%;
+
+    }
+
+    .plant-display-div{
+        height: 45vh;
+
+    }
+
+
+}
+
+
+.plant-div{
+    height: 50%;
+    border-bottom: 1px solid lightgrey;
+    width: 50%;
+    margin: auto;
+
+
+}
+.plant-name-div, .plant-description-div, .plant-watering-div{
+    height: 10%;
+    margin-top: 2%;
+    font-size: 0.7em;
+
+}
+
+
+.plant-img-div{
+    height: 50%;
+    margin-top: 5%;
+}
+
+.plant-img{
+    max-width: 65%;
+    max-height: 65%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+button{
+    background: none;
+    border: none;
+    cursor: pointer;
+
+
+}
+
+

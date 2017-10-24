@@ -1,0 +1,19 @@
+{
+    "plants"
+:
+    {
+        "vegetables"
+    :
+        [
+            {
+                "name": "Tomato",
+                "watering": "Once every 4th day",
+                "description": "Red",
+                "imgUrl": "http://www.rona.ca/images/54615034_L.jpg",
+                "category": "vegetables"
+
+            }
+        ]
+    }
+
+}

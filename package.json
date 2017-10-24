@@ -1,0 +1,22 @@
+{
+  "name": "sigma-autonomous-watering",
+  "version": "1.0.0",
+  "description": "You can use the [editor on GitHub](https://github.com/ahlbomgunnar/Sigma-Autonomous-Watering/edit/master/README.md) to maintain and preview the content for your website in Markdown files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahlbomgunnar/Sigma-Autonomous-Watering.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahlbomgunnar/Sigma-Autonomous-Watering/issues"
+  },
+  "homepage": "https://github.com/ahlbomgunnar/Sigma-Autonomous-Watering#readme",
+  "dependencies": {
+    "vue": "^2.5.2"
+  }
+}

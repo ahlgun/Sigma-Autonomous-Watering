@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Autonomous Watering App - Sigma</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arima+Madurai:100|BenchNine:300|Wire+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue-multiselect@2.0.0"></script>
+    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.0.0/dist/vue-multiselect.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+
+<div id="root">
+
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-4 add-plant-div">
+                <input class="col-sm-12 add-plant-input" placeholder="Type the name of your plant" v-model="inputPlant.name" type="text">
+                <input class="col-sm-12 add-plant-input" placeholder="Describe your plant" v-model="inputPlant.description" type="text">
+                <input class="col-sm-12 add-plant-input" placeholder="How often does your plant need watering?" v-model="inputPlant.watering" type="text">
+                <input class="col-sm-12 add-plant-input" placeholder="Insert an image url of your plant" v-model="inputPlant.imgUrl" type="text">
+                    <div class="col-sm-12 radio-container">
+                        <div class="radio-div col-xs-4">Vegetables <input value="vegetables" v-model="inputPlant.category" type="radio"></div>
+                        <div class="radio-div col-xs-4">Wild plants <input value="wild plants" v-model="inputPlant.category" type="radio"></div>
+                        <div class="radio-div col-xs-4">Flowers <input value="flowers" v-model="inputPlant.category" type="radio"></div>
+                    </div>
+                    <button class="add-plant-button col-sm-12" @click="addPlant">Add plant to your collection</button>
+            </div>
+
+
+
+
+
+                <div class="col-xs-12 col-sm-8 plant-display-div">
+                    <button class="display-categorize-button" @click="fetchPlants" id="vegetables">Vegetables</button>
+                    <button class="display-categorize-button" @click="fetchPlants" id="wild plants">Wild plants</button>
+                    <button class="display-categorize-button" @click="fetchPlants" id="flowers">Flowers</button>
+                    <div class="col-sm-12 plant-div" v-for="plant in plantsToDisplay.list">
+                        <div class="col-sm-12 plant-name-div">{{plant.name}}</div>
+                        <div class="col-sm-12 plant-description-div">{{plant.description}}</div>
+                        <div class="col-sm-12 plant-watering-div">{{plant.watering}}</div>
+                        <div class="col-sm-12 plant-img-div"><img class="plant-img" :src="plant.imgUrl" :alt="plant.imgUrl"/></div>
+                    </div>
+
+
+                </div>
+
+
+
+
+        </div>
+    </div>
+
+
+    
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDKJkv4mzxLfwHffzHHKJhy4jOj70QrR88",
+        authDomain: "the-plant-application.firebaseapp.com",
+        databaseURL: "https://the-plant-application.firebaseio.com",
+        projectId: "the-plant-application",
+        storageBucket: "the-plant-application.appspot.com",
+        messagingSenderId: "105807050826"
+    };
+    firebase.initializeApp(config);
+</script>
+
+
+<script>
+
+    /*import Vue from 'vue'
+    import VueFire from 'vuefire'
+*/
+
+    var database = firebase.database();
+
+
+
+    var main = new Vue ({
+        el: '#root',
+
+        data: {
+            plantsToDisplay: {
+                list: []
+            },
+            inputPlant: {
+                name: "",
+                description: "",
+                category: "vegetables",
+                watering: "",
+                imgUrl: ""
+            },
+            options: ["Vegetables", "Wild plants", "Flowers"],
+            plantsCategory: "vegetables"
+        },
+
+        computed: {
+
+        },
+        methods: {
+            addPlant: function () {
+                let plantToAdd = Object.assign({}, this.inputPlant);
+                database.ref('plants/' + this.inputPlant.category).push(this.inputPlant);
+
+            },
+
+            fetchPlants: function (event) {
+                let self = this;
+
+                    database.ref('plants/' + event.target.id).on('value', function(snapshot) {
+
+                        for(var plant in snapshot.val()){
+                            self.plantsToDisplay.list = snapshot.val();
+
+                        }
+
+
+                    });
+
+
+            }
+
+        }
+    })
+
+
+</script>
+</body>
+</html>
