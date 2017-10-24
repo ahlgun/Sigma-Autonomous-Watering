@@ -46,7 +46,11 @@
                     <button class="display-categorize-button" @click="fetchPlants" id="vegetables">Vegetables</button>
                     <button class="display-categorize-button" @click="fetchPlants" id="wild plants">Wild plants</button>
                     <button class="display-categorize-button" @click="fetchPlants" id="flowers">Flowers</button>
-                    <div class="col-sm-12 plant-div" v-for="plant in plantsToDisplay.list">
+                    <div  v-if="plantsToDisplay.list === undefined" class="col-sm-12 plant-div">
+                        <div class="col-sm-12 plant-name-div">You have no plants registered in this category.</div>
+
+                    </div>
+                    <div  v-if="plantsToDisplay.list !== undefined" class="col-sm-12 plant-div" v-for="plant in plantsToDisplay.list">
                         <div class="col-sm-12 plant-name-div">{{plant.name}}</div>
                         <div class="col-sm-12 plant-description-div">{{plant.description}}</div>
                         <div class="col-sm-12 plant-watering-div">{{plant.watering}}</div>
@@ -122,14 +126,20 @@
             fetchPlants: function (event) {
                 let self = this;
 
-                    database.ref('plants/' + event.target.id).on('value', function(snapshot) {
+                fetch('https://sigma-itc-watering.herokuapp.com/api')
+                    .then(function(response) {
+                        return response.text();
+                    })
+                    .then(function(list) {
+                        console.log(JSON.parse(list).plants[event.target.id])
+                        let newList = JSON.parse(list).plants[event.target.id]
 
-                        for(var plant in snapshot.val()){
-                            self.plantsToDisplay.list = snapshot.val();
-
-                        }
+                            self.plantsToDisplay.list = newList
 
 
+                    })
+                    .catch(function(error) {
+                        console.log('Request failed', error)
                     });
 
 
