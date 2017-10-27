@@ -42,6 +42,7 @@ height: 15%;
     padding: 1%;
     border-bottom: 2px solid lightgrey;
     transition: 0.3s ease;
+    outline: none;
 
 }
 
@@ -62,11 +63,14 @@ border-bottom: 2px solid rebeccapurple;
             margin-top: 1%;
             height: 15%;
             cursor: pointer;
+            outline: none;
+            border: none;
 
         }
 
-        .display-categorize-button:hover{
+        .display-categorize-button:hover, .display-categorize-button:focus{
             color: lightgrey;
+            outline: none;
 
 
         }
@@ -95,7 +99,23 @@ border-bottom: 2px solid rebeccapurple;
     font-weight: 700;
     transition: 0.2s ease;
     color: rebeccapurple;
+    outline: none;
+    margin-top: 2%;
+    border: 1px solid lightgrey;
 }
+
+.form-not-valid{
+    color: brown;
+    height: 2%;
+    width: 100%;
+    margin-bottom: 2%;
+
+}
+
+.add-plant-button:hover {
+    outline: none;
+}
+
 
 .add-plant-button:hover{
     color: lightgrey;
@@ -135,7 +155,7 @@ border-bottom: 2px solid rebeccapurple;
 
 
 .plant-div{
-    height: 50%;
+    height: 60%;
     border-bottom: 1px solid lightgrey;
     width: 50%;
     margin: auto;
@@ -148,7 +168,6 @@ border-bottom: 2px solid rebeccapurple;
     font-size: 0.7em;
 
 }
-
 
 .plant-img-div{
     height: 50%;
@@ -163,12 +182,70 @@ border-bottom: 2px solid rebeccapurple;
     background-repeat: no-repeat;
 }
 
+.plant-edit-button, .plant-remove-button{
+    width: 48%;
+    border: 1px solid lightgrey;
+    color: rebeccapurple;
+    font-weight: 700;
+
+}
+
 button{
     background: none;
     border: none;
     cursor: pointer;
+}
+
+
+/*------EDIT PLANT SECTION-----*/
+
+.edit-plant-div{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.85);
+    top: 0;
+    left: 0;
+    transition: 0.5s ease;
+    animation: fadeInRight;
+}
+
+.edit-plant-content{
+    height: 50%;
+    background-color: #eaeaea;
+    color: rebeccapurple;
+    margin: auto;
+    margin-top: 10%;
+    transition: 0.3s ease;
+    animation: fadeInRight;
+    text-align: center;
+    padding-top: 7%;
 
 
 }
+
+.edit-plant-submit-button{
+margin: auto;
+    height: 10%;
+    color: rebeccapurple;
+    align-content: center;
+    margin-top: 5%;
+
+}
+
+/*****KEYFRAMES********/
+
+@-webkit-keyframes fadeInRight {
+    from {right: -25vw;opacity: 0;}
+    to {right: -0vw;opacity: 1;}
+}
+
+@keyframes fadeInRight {
+    from {right: -25vw;opacity: 0;}
+    to {right: -0vw;opacity: 1;}
+}
+
+
 
 
