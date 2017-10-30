@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -105,12 +105,14 @@
                 <div class="edit-plant-content col-xs-12 col-sm-6">
 
                     <div class="col-xs-12">{{plantToEdit.name}}</div>
+
                     <input class="col-sm-12 add-plant-input" placeholder="Type the name of your plant" v-model="plantToEdit.name" type="text">
                     <input class="col-sm-12 add-plant-input" placeholder="Describe your plant" v-model="plantToEdit.description" type="text">
                     <input class="col-sm-12 add-plant-input" placeholder="How often does your plant need watering?" v-model="plantToEdit.watering" type="text">
                     <input class="col-sm-12 add-plant-input" placeholder="Insert an image url of your plant" v-model="plantToEdit.imgUrl" type="text">
                     <button @click="submitEditPlant" class="col-sm-5 edit-plant-button">Complete changes</button>
                     <button @click="quitEditPlant" class="col-sm-5 edit-plant-button">Cancel edit</button>
+
                 </div>
 
 
@@ -130,7 +132,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
 <script>
-    // Initialize Firebase
+        // Initialize Firebase
     var config = {
         apiKey: "AIzaSyDKJkv4mzxLfwHffzHHKJhy4jOj70QrR88",
         authDomain: "the-plant-application.firebaseapp.com",
@@ -266,7 +268,6 @@
                         plantToEdit = this.plantsToDisplay[plant]
                         this.plantToEdit = plantToEdit;
                     }
-
                 }
                 this.editingPlant = true;
 
@@ -281,7 +282,6 @@
             submitEditPlant: function () {
                 let self = this;
                 let updatedPlant = this.plantToEdit;
-
                 var request = new Request('https://sigma-itc-watering.herokuapp.com/plants/edit', {
                     method: 'POST',
                     body: JSON.stringify({id: updatedPlant._id, plant: updatedPlant}),

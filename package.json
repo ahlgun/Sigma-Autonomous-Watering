@@ -18,6 +18,12 @@
   "homepage": "https://github.com/ahlbomgunnar/Sigma-Autonomous-Watering#readme",
   "dependencies": {
     "fetch": "^1.1.0",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.4.0",
+    "postcss": "^6.0.13",
     "vue": "^2.5.2"
+  },
+  "devDependencies": {
+    "gulp-postcss": "^7.0.0"
   }
 }
