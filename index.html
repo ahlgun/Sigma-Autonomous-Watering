@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Autonomous Watering App - Sigma</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Arima+Madurai:100|BenchNine:300|Wire+One" rel="stylesheet">
@@ -19,18 +18,13 @@
 <body>
 
 <div id="root">
-
-
-
     <div class="container">
         <div class="row">
-
             <div class="col-xs-12 col-sm-4 add-plant-div">
                 <input class="col-sm-12 add-plant-input" placeholder="Type the name of your plant" v-model="inputPlant.name" type="text">
                 <input class="col-sm-12 add-plant-input" placeholder="Describe your plant" v-model="inputPlant.description" type="text">
                 <input class="col-sm-12 add-plant-input" placeholder="How often does your plant need watering?" v-model="inputPlant.watering" type="text">
                 <input class="col-sm-12 add-plant-input" placeholder="Insert an image url of your plant" v-model="inputPlant.imgUrl" type="text">
-
                 <ul class="col-sm-12 radio-container">
                     <li>
                         <input value="vegetables" v-model="inputPlant.category" checked type="radio" name="1">
@@ -80,13 +74,7 @@
                 </div>
                 <button class="add-plant-button col-sm-12" @click="addPlant">Add plant to your collection</button>
             </div>
-
-
-
-
-
             <div class="col-xs-12 col-sm-8 plant-display-div">
-
                 <button class="display-categorize-button" @click="fetchPlants" id="vegetables">Vegetables</button>
                 <button class="display-categorize-button" @click="fetchPlants" id="wild plants">Wild plants</button>
                 <button class="display-categorize-button" @click="fetchPlants" id="flowers">Flowers</button>
@@ -99,211 +87,114 @@
                     <button :data-id="plant._id" class="col-sm-6 plant-edit-button" @click="(event) => {editPlant (event) }">Edit plant</button>
                 </div>
             </div>
-
             <div v-if="editingPlant === true " class="edit-plant-div">
-
                 <div class="edit-plant-content col-xs-12 col-sm-6">
-
                     <div class="col-xs-12">{{plantToEdit.name}}</div>
-
                     <input class="col-sm-12 add-plant-input" placeholder="Type the name of your plant" v-model="plantToEdit.name" type="text">
                     <input class="col-sm-12 add-plant-input" placeholder="Describe your plant" v-model="plantToEdit.description" type="text">
                     <input class="col-sm-12 add-plant-input" placeholder="How often does your plant need watering?" v-model="plantToEdit.watering" type="text">
                     <input class="col-sm-12 add-plant-input" placeholder="Insert an image url of your plant" v-model="plantToEdit.imgUrl" type="text">
                     <button @click="submitEditPlant" class="col-sm-5 edit-plant-button">Complete changes</button>
                     <button @click="quitEditPlant" class="col-sm-5 edit-plant-button">Cancel edit</button>
-
                 </div>
-
-
-
             </div>
-
-
-
         </div>
-
     </div>
-
-
-
-
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-<script>
-        // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyDKJkv4mzxLfwHffzHHKJhy4jOj70QrR88",
-        authDomain: "the-plant-application.firebaseapp.com",
-        databaseURL: "https://the-plant-application.firebaseio.com",
-        projectId: "the-plant-application",
-        storageBucket: "the-plant-application.appspot.com",
-        messagingSenderId: "105807050826"
-    };
-    firebase.initializeApp(config);
-</script>
-
-
 <script>
 
-    /*import Vue from 'vue'
-    import VueFire from 'vuefire'
-**/
-
-    var database = firebase.database();
-
-
-
-    var main = new Vue ({
-        el: '#root',
-        data: {
-            plantsToDisplay: {
-                list: []
-            },
-            inputPlant: {
-                name: "",
-                description: "",
-                category: "vegetables",
-                watering: "",
-                imgUrl: ""
-            },
-            formNotValid: false,
-            plantToEdit: {name: ""},
-            editingPlant: false,
-            options: ["Vegetables", "Wild plants", "Flowers"],
-            plantsCategory: "vegetables"
+var url = 'https://acaciaallenii.lightrays.io/';
+var main = new Vue ({
+    el: '#root',
+    data: {
+        plantsToDisplay: [],
+        inputPlant: {
+            name: "",
+            description: "",
+            category: "vegetables",
+            watering: "",
+            imgUrl: ""
         },
+        formNotValid: false,
+        plantToEdit: {name: ""},
+        editingPlant: false,
+        options: ["Vegetables", "Wild plants", "Flowers"],
+        plantsCategory: "vegetables"
+    },
+    methods: {
 
-        computed: {
-
-        },
-        methods: {
-            addPlant: function () {
-                let plantToAdd = this.inputPlant;
-                if(
-                    plantToAdd.name.length === 0
-                    || plantToAdd.description.length === 0
-                    || plantToAdd.category.length === 0
-                    || plantToAdd.watering.lengt === 0
-                    || plantToAdd.imgUrl.length === 0
-                ){
-                    this.formNotValid = true;
-                }
-                else{
-                    this.formNotValid = false;
-                    let self = this;
-                    var request = new Request('https://sigma-itc-watering.herokuapp.com/plants/add', {
-                        method: 'POST',
-                        body: JSON.stringify(plantToAdd),
-                        mode: "cors",
-                        headers: new Headers({
-                            'Accept': 'application/json, text/plain, */*',
-                            'Content-Type': 'application/json'
-                        })
+        addPlant: function () {
+            let plantToAdd = this.inputPlant;
+            if(plantToAdd.name.length === 0
+            || plantToAdd.description.length === 0
+            || plantToAdd.category.length === 0
+            || plantToAdd.watering.lengt === 0
+            || plantToAdd.imgUrl.length === 0) {
+                this.formNotValid = true;
+            } 
+            else {
+                this.formNotValid = false;
+                this.apiCall(url + 'plants/add', 'POST', 'cors', new Headers({'Accept': 'application/json, text/plain, */*','Content-Type': 'application/json'}), JSON.stringify(plantToAdd))
+                    .then((response) => {
+                        this.inputPlant = {
+                            name: "", 
+                            description: "", 
+                            category: "vegetables", 
+                            watering: "", 
+                            imgUrl: ""
+                        }
+                        this.fetchPlants();
                     });
-                    fetch(request) // Transform the data into json
-                        .then(function(response) {
-                            self.fetchPlants();
-                            self.inputPlant = {
-                                name: "",
-                                description: "",
-                                category: "vegetables",
-                                watering: "",
-                                imgUrl: ""
-                            }
-                        })
-                        .catch( function(error){
-                            console.log(error)
-                        })
-                }
-
-            },
-            fetchPlants: function (event) {
-                let self = this;
-                var request = new Request('https://sigma-itc-watering.herokuapp.com/plants', {
-                    method: 'GET',
-                    mode: "cors",
-                    headers: new Headers()
-                });
-                fetch(request) // Transform the data into json
-                    .then(function(response) {
-
-                        return response.text();
-                    }).then(function(response) {
-                    console.log(response)
-                    self.plantsToDisplay = JSON.parse(response);
-                });
-            },
-
-            removeOnePlant: function (event) {
-                let self = this;
-                let idToRemove = event.target.getAttribute('data-id');
-                console.log('lyckades')
-
-                var request = new Request('https://sigma-itc-watering.herokuapp.com/plants/remove', {
-                    method: 'POST',
-                    body: JSON.stringify({id: idToRemove}),
-                    mode: "cors",
-                    headers: new Headers({
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
-                    })
-                });
-                fetch(request) // Transform the data into json
-                    .then(function(response) {
-                        console.log(response);
-                        self.fetchPlants();
-                    })
-                    .catch( function(error){
-                        console.log(error)
-                    })
-            },
-
-            editPlant: function (event) {
-                let plantToEdit;
-                let plantToEditId = event.target.getAttribute('data-id');
-                for(var plant in this.plantsToDisplay){
-                    if(this.plantsToDisplay[plant]._id === plantToEditId){
-                        plantToEdit = this.plantsToDisplay[plant]
-                        this.plantToEdit = plantToEdit;
-                    }
-                }
-                this.editingPlant = true;
-
-            },
-
-            quitEditPlant: function (event) {
-
-                this.editingPlant = false;
-
-            },
-
-            submitEditPlant: function () {
-                let self = this;
-                let updatedPlant = this.plantToEdit;
-                var request = new Request('https://sigma-itc-watering.herokuapp.com/plants/edit', {
-                    method: 'POST',
-                    body: JSON.stringify({id: updatedPlant._id, plant: updatedPlant}),
-                    mode: "cors",
-                    headers: new Headers({
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
-                    })
-                });
-                fetch(request) // Transform the data into json
-                    .then(function(response) {
-                        console.log(response);
-                        self.fetchPlants();
-                        self.plantToEdit = {name: ""}
-                        self.editingPlant = false;
-                    })
-                    .catch( function(error){
-                        console.log(error)
-                    })
             }
+        },
+
+        // Api call with ID
+        editPlant: function (event) {
+            let plantToEdit;
+            let plantToEditId = event.target.getAttribute('data-id');
+            for(var plant in this.plantsToDisplay){
+                if(this.plantsToDisplay[plant]._id === plantToEditId) {
+                    plantToEdit = this.plantsToDisplay[plant];
+                    this.plantToEdit = plantToEdit;
+                }
+            }
+            this.editingPlant = true;
+        },
+
+        quitEditPlant: function () {
+            this.editingPlant = false;
+        },
+
+        fetchPlants: function () {
+            this.apiCall(url + 'plants', 'GET', 'cors', new Headers(), {})
+                .then((response) => this.plantsToDisplay = response);
+        },
+ 
+        removeOnePlant: function (event) {
+            var idToRemove = event.target.getAttribute('data-id');
+            this.apiCall(url + 'plants/remove', 'POST', 'cors', new Headers({'Accept': 'application/json, text/plain, */*','Content-Type': 'application/json'}), JSON.stringify({id: idToRemove}))
+                .then((response) => this.fetchPlants());
+        },
+
+        submitEditPlant: function () {
+            let updatedPlant = this.plantToEdit;
+            this.apiCall(url + 'plants/edit', 'POST', 'cors', new Headers({'Accept': 'application/json, text/plain, */*','Content-Type': 'application/json'}), JSON.stringify({id: updatedPlant._id, plant: updatedPlant}))
+                .then((response) => {
+                    this.fetchPlants();
+                    this.plantToEdit = {name: ""}
+                    this.editingPlant = false;
+                });
+        },
+
+        apiCall: function(url, method, mode, headers, body) {
+            var req = new Request(url, {body: body, method: method, mode: mode, headers: headers});
+            return fetch(req)
+                .then(res=>res.text()).then(res=>JSON.parse(res))
+                .catch(err=>console.log(err));
         }
-    })
+    }
+})
 </script>
 </body>
 </html>
